@@ -1,10 +1,10 @@
 import mysql from 'promise-mysql';
-
+import 'dotenv/config';
 export default mysql.createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    database: process.env.MYSQL_DB,
-    password: process.env.MYSQL_PASS,
+    host: process.env.HOST,
+    user: process.env.USER,
+    database: process.env.DB,
+    password: process.env.PASS,
     waitForConnections: true,
     connectionLimit: 5,
     queueLimit: 0,
