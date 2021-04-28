@@ -8,6 +8,14 @@ import 'dotenv/config';
 
 const app = express();
 app.use(cors());
+app.use(function (request, response, next) {
+    response.header('Access-Control-Allow-Origin', '*');
+    response.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    );
+    next();
+});
 app.use(morgan('dev'));
 app.use(body.json());
 app.use(body.urlencoded({ extended: false }));
