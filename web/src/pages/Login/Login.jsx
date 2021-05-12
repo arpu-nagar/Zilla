@@ -1,6 +1,5 @@
 import {
 	Button,
-	Container,
 	makeStyles,
 	Paper,
 	TextField,
@@ -46,7 +45,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function Login() {
+function Login(props) {
 	const classes = useStyles();
 	const [state, setState] = React.useState({
 		email: '',
@@ -57,9 +56,12 @@ function Login() {
 			email: state.email,
 			password: state.password,
 		};
-		console.log(data);
 		const response = await login(data);
-		console.log(response);
+		if (response.success === true) {
+			props.history.push('/');
+		} else {
+			console.log('Incorrect.');
+		}
 	};
 	return (
 		<div className={classes.root}>

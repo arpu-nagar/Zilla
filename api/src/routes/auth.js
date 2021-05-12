@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import sendEmail from '../utils/mailer';
 import crypto from 'cryptojs';
+
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
