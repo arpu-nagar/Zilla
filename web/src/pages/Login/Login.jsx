@@ -26,7 +26,9 @@ const useStyles = makeStyles({
 		paddingTop: '10px',
 		paddingBottom: '10px',
 		marginBottom: '30px',
-		width: 275,
+		paddingRight: '30px',
+		paddingLeft: '30px',
+		width: 320,
 		height: 275,
 	},
 	text: {
@@ -47,6 +49,7 @@ const useStyles = makeStyles({
 
 function Login(props) {
 	const classes = useStyles();
+	React.useEffect(() => {}, []);
 	const [state, setState] = React.useState({
 		email: '',
 		password: '',
@@ -75,6 +78,7 @@ function Login(props) {
 					variant={'h4'}
 					style={{
 						fontWeight: 300,
+						marginBottom: '10px',
 					}}
 				>
 					ZILLA
@@ -86,6 +90,7 @@ function Login(props) {
 					variant="outlined"
 					className={classes.text}
 					size="small"
+					fullWidth
 					onChange={e => {
 						setState({
 							...state,
@@ -100,6 +105,7 @@ function Login(props) {
 					variant="outlined"
 					className={classes.text}
 					size="small"
+					fullWidth
 					onChange={e => {
 						setState({
 							...state,

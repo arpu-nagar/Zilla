@@ -43,7 +43,7 @@ router.post('/signup', async (req, res) => {
         ]);
         console.log(data);
         // send email
-        const link = process.env.DOMAIN + 'verify/' + data[0].id;
+        const link = process.env.DOMAIN + 'auth/verify/' + data[0].id;
         const details = {
             email: email,
             subject: 'Verification for Zilla Account.',
@@ -107,7 +107,8 @@ router.get('/verify/:id', async (req, res) => {
             'UPDATE Users SET verified=true where id=?;',
             [req.params.id],
         );
-        if (data.affectedRows === 1) res.sendSuccess(null, 'Account Verified.');
+        if (data.affectedRows === 1)
+            return res.send('<script>window.close();</script >');
         else res.sendError(null, 'Interval Server Error.');
     } catch (error) {
         console.log(error);
@@ -123,12 +124,14 @@ router.post('/passwordreset', async (req, res) => {
         if (users.length === 0)
             return res.sendError(null, 'Email doesnot exist, please SignUp.');
 
-        const token = crypto.randomBytes(64).toString('hex');
+        const token = Math.random().toString(36).substring(16);
         await db.query('UPDATE Users SET token=? where email=?;', [
             token,
             email,
         ]);
-        const link = process.env.DOMAIN + 'passwordreset/' + data[0].id;
+        // TODO
+        // change link to redirect to frontend
+        const link = process.env.DOMAIN + 'auth/passwordreset/' + users[0].id;
         const details = {
             email: email,
             subject: 'Verification for Zilla Account.',

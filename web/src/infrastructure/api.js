@@ -37,15 +37,13 @@ export async function secApiCall(url, data, method = 'POST') {
 export async function apiCall(url, data, method = 'POST') {
 	if (!data) data = {};
 	let requestOptions = {
-		method: method,
 		credentials: 'include',
 		redirect: 'follow',
 		headers: {
 			'Access-Control-Allow-Origin': '*',
 			'Content-Type': 'application/json',
 		},
-		body: data,
 	};
-	const response = await fetch(target + url, requestOptions);
-	return response;
+	const response = await axios.post(target + url, data, requestOptions);
+	return response.data;
 }
