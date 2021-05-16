@@ -131,7 +131,7 @@ router.post('/passwordreset', async (req, res) => {
         ]);
         // TODO
         // change link to redirect to frontend
-        const link = process.env.DOMAIN + 'auth/passwordreset/' + users[0].id;
+        const link = process.env.FRONTEND + 'reset-password/' + users[0].id;
         const details = {
             email: email,
             subject: 'Verification for Zilla Account.',
@@ -142,7 +142,7 @@ router.post('/passwordreset', async (req, res) => {
                 <p> Please click on the following link to reset your account password.</p>
                 <br>
                 <a href=${link}>${link}</a>
-                </body> 
+                </body>
             </html> 
         `,
         };
