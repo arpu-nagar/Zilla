@@ -6,6 +6,7 @@ import {
 	Typography,
 } from '@material-ui/core';
 import React from 'react';
+import { useParams } from 'react-router';
 import SnackbarWrapper from '../../components/SnackbarWrapper';
 import { apiCall } from '../../infrastructure/api';
 
@@ -50,6 +51,7 @@ const useStyles = makeStyles({
 
 function SetPassword(props) {
 	const classes = useStyles();
+	const { id } = useParams();
 	const [state, setState] = React.useState({
 		password: '',
 		confirm: '',
@@ -63,11 +65,24 @@ function SetPassword(props) {
 	};
 	const register = async () => {
 		try {
-			const { email } = state;
+			const { password, confirm } = state;
+			if (password !== confirm) {
+				setState(state => ({
+					...state,
+					visibleSnackBar: true,
+					snackbarMessage: 'Passwords do not match.',
+					snackbarType: 'error',
+				}));
+				return;
+			}
 			const data = {
-				email,
+				password,
 			};
-			const response = await apiCall('auth/passwordreset', data, 'POST');
+			const response = await apiCall(
+				`auth/passwordreset/${id}`,
+				data,
+				'POST',
+			);
 			setState(state => ({
 				...state,
 				visibleSnackBar: true,
@@ -85,7 +100,7 @@ function SetPassword(props) {
 	return (
 		<div className={classes.root}>
 			<Paper
-				variant="contained"
+				variant="elevation"
 				square
 				elevation={3}
 				className={classes.paper}
@@ -101,7 +116,7 @@ function SetPassword(props) {
 				</Typography>
 
 				<TextField
-					id="outlined-email-input"
+					id="outlined-password-input"
 					label="Password"
 					type="text"
 					variant="outlined"

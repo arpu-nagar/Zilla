@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { login } from '../../infrastructure/api';
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 	root: {
 		height: '100vh',
 		width: '100vw',
@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 		fontSize: 13,
 		color: 'grey',
 	},
-});
+}));
 
 function Login(props) {
 	const classes = useStyles();
