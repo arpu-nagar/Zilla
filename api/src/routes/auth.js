@@ -3,9 +3,22 @@ import db from '../config/db';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import sendEmail from '../utils/mailer';
-import crypto from 'cryptojs';
+import querystring from 'querystring';
 
 const router = express.Router();
+
+function makeid(length) {
+    var result = [];
+    var characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result.push(
+            characters.charAt(Math.floor(Math.random() * charactersLength)),
+        );
+    }
+    return result.join('');
+}
 
 router.post('/signup', async (req, res) => {
     try {
@@ -124,7 +137,7 @@ router.post('/passwordreset', async (req, res) => {
         if (users.length === 0)
             return res.sendError(null, 'Email doesnot exist, please SignUp.');
 
-        const token = Math.random().toString(36).substring(16);
+        const token = makeid(16);
         await db.query('UPDATE Users SET token=? where email=?;', [
             token,
             email,
@@ -165,6 +178,20 @@ router.post('/passwordreset/:id', async (req, res) => {
         ]);
 
         res.sendSuccess(null, 'Successful, please login.');
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.get('/set-user-password/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const query = querystring.stringify({
+            token: id,
+        });
+        return res.redirect(
+            process.env.FRONTEND + 'set-user-password/?' + query,
+        );
     } catch (error) {
         console.log(error);
     }
