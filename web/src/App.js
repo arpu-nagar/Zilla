@@ -1,6 +1,7 @@
 import ZillaDriver from './pages/ZillaDriver';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-
+import { Provider } from 'react-redux';
+import store from './store';
 const theme = createMuiTheme({
 	palette: {
 		primary: {
@@ -17,9 +18,11 @@ const theme = createMuiTheme({
 function App() {
 	return (
 		<div>
-			<MuiThemeProvider theme={theme}>
-				<ZillaDriver />
-			</MuiThemeProvider>
+			<Provider store={store}>
+				<MuiThemeProvider theme={theme}>
+					<ZillaDriver />
+				</MuiThemeProvider>
+			</Provider>
 		</div>
 	);
 }

@@ -25,13 +25,12 @@ export async function secApiCall(url, data, method = 'POST') {
 			'Content-Type': 'application/json',
 		},
 	};
-	const response = await fetch(target + url, requestOptions);
-	if (response.status === 401) {
-		access_token = null;
-		// logout
+	const response = await axios.post(target + url, data, requestOptions);
+	if (response.status === 401 || response.status === 403) {
+		access_token = null; // weird logout works
 		window.location.replace('/');
 	}
-	return response;
+	return response.data;
 }
 
 export async function apiCall(url, data, method = 'POST') {

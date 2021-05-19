@@ -17,7 +17,19 @@ function makeid(length) {
     return result.join('');
 }
 
-console.log(makeid(5));
+router.post('/getUserData', async (req, res) => {
+    try {
+        const data = await db.query(
+            'SELECT Users.name as me,email, organisation.* from Users INNER JOIN organisation where Users.id=?;',
+            [req.admin_data.id],
+        );
+        // delete data[0].data.id;
+        console.log(data[0]);
+        return res.sendSuccess(data[0], 'Successfully sent user data.');
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 router.post('/addUser', async (req, res) => {
     try {

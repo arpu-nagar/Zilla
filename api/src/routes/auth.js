@@ -190,8 +190,31 @@ router.get('/set-user-password/:id', async (req, res) => {
             token: id,
         });
         return res.redirect(
-            process.env.FRONTEND + 'set-user-password/?' + query,
+            process.env.FRONTEND + 'set-user-password?' + query,
         );
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.post('/passwordset', async (req, res) => {
+    try {
+        const { password, token } = req.body;
+        const exists = await db.query('SELECT * from Users where id=?;', [
+            token,
+        ]);
+        if (exists.length === 0) {
+            return res.sendError(null, 'Invalid URL.');
+        }
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(password, salt);
+        await db.query('UPDATE Users set password=?, verified=? where id=?', [
+            passwordHash,
+            true,
+            token,
+        ]);
+
+        res.sendSuccess(null, 'Successful, please login.');
     } catch (error) {
         console.log(error);
     }

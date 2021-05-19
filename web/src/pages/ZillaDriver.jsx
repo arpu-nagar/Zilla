@@ -5,6 +5,7 @@ import Login from './Login/Login';
 import Logout from './Logout';
 import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from './Register/RegisterPage';
+import SetUserPassword from './Register/SetUserPassword';
 import ResetPassword from './ResetPassword/ResetPassword';
 import SetPassword from './ResetPassword/SetPassword';
 
@@ -17,6 +18,10 @@ function ZillaDriver() {
 						exact
 						path="/reset-password"
 						component={props => <ResetPassword {...props} />}
+					/>
+					<Route
+						path="/set-user-password"
+						component={props => <SetUserPassword {...props} />}
 					/>
 					<Route
 						path="/register"
