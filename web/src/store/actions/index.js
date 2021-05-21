@@ -1,3 +1,3 @@
 import { setUserDetailsAction } from './UserDetailsAction';
-
-export { setUserDetailsAction };
+import { setHome, setTasks, setBugs, setBacklog } from './PageAction';
+export { setHome, setTasks, setBugs, setBacklog, setUserDetailsAction };
