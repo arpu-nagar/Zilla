@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import BottomNav from '../../components/BottomNav';
 import NavBar from '../../components/NavBar';
-import OrganisationDetails from '../../components/OrganisationDetails';
+import OrganisationDetails from './OrganisationDetails';
 import { setUserDetailsAction } from '../../store/actions/UserDetailAction';
 
 const useStyle = makeStyles(theme => ({
@@ -24,10 +24,19 @@ function Home(props) {
 	useEffect(() => {
 		dispatch(setUserDetailsAction());
 	}, [dispatch]);
+	console.log(props.navigation.page);
+	const currentPageDecider = () => {
+		if (props.navigation.page === 'Home')
+			return <OrganisationDetails details={props.details} />;
+		else if (props.navigation.page === 'Tasks') return <div>1</div>;
+		else if (props.navigation.page === 'Bugs') return <div>2</div>;
+		else return <div>3</div>;
+	};
 	return (
 		<Grid container className={classes.root}>
 			<NavBar />
-			<OrganisationDetails details={props.details} />
+			{currentPageDecider()}
+
 			<Grid className={classes.bottomNav}>
 				<BottomNav />
 			</Grid>
