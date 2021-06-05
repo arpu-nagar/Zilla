@@ -60,4 +60,12 @@ router.post('/addUser', async (req, res) => {
     }
 });
 
+router.post('/deleteUser', async (req, res) => {
+    try {
+        const { id } = req.body;
+    } catch (error) {
+        return res.sendError(null, 'Internal Server Error');
+    }
+});
+
 export default router;
