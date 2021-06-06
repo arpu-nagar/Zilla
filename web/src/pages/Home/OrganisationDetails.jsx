@@ -1,4 +1,5 @@
 import {
+	Avatar,
 	Button,
 	Card,
 	CardActions,
@@ -7,12 +8,13 @@ import {
 	makeStyles,
 	Typography,
 } from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
 import AddIcon from '@material-ui/icons/Add';
 import React from 'react';
 import AddUserDialog from './AddUserDialog';
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 	root: {
-		height: '75vh',
+		height: '78vh',
 		marginTop: '5vh',
 		marginLeft: 10,
 		marginRight: 10,
@@ -23,14 +25,26 @@ const useStyles = makeStyles({
 	},
 	title: {
 		fontWeight: 300,
-		marginBottom: '12vh',
+		marginBottom: '10vh',
+		marginLeft: '3vw',
+	},
+	head: {
+		marginLeft: '30%',
 	},
 	addButton: {
 		marginLeft: 'auto',
 		marginTop: 'auto',
 		marginRight: 5,
 	},
-});
+	orange: {
+		color: theme.palette.getContrastText(deepOrange[800]),
+		backgroundColor: deepOrange[800],
+		width: '150px',
+		height: '150px',
+		fontSize: 64,
+		marginBottom: '20px',
+	},
+}));
 
 function OrganisationDetails(props) {
 	const { details } = props;
@@ -54,9 +68,13 @@ function OrganisationDetails(props) {
 	return (
 		<Card className={classes.root} variant="outlined">
 			<CardContent>
-				<Typography variant={'h5'} className={classes.title}>
-					{details.me}'s Dashboard
-				</Typography>
+				<div className={classes.head}>
+					<Avatar className={classes.orange}>AN</Avatar>
+					<Typography variant={'h5'} className={classes.title}>
+						{details.me}
+					</Typography>
+				</div>
+
 				<Typography variant={'h6'}>
 					Hi! 👋 Welcome to {details.name}.
 				</Typography>

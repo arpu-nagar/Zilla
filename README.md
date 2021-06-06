@@ -2,6 +2,10 @@
 
 A bug tracking and agile project management tool for your team or group project.
 
+## About this product
+
+Zilla sucks.
+
 ## Tech Stack
 
 1. Express.js with Babel

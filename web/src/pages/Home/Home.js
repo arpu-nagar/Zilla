@@ -5,6 +5,7 @@ import BottomNav from '../../components/BottomNav';
 import NavBar from '../../components/NavBar';
 import OrganisationDetails from './OrganisationDetails';
 import { setUserDetailsAction } from '../../store/actions/UserDetailAction';
+import Bugs from '../Bugs/Bugs';
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -29,7 +30,7 @@ function Home(props) {
 		if (props.navigation.page === 'Home')
 			return <OrganisationDetails details={props.details} />;
 		else if (props.navigation.page === 'Tasks') return <div>1</div>;
-		else if (props.navigation.page === 'Bugs') return <div>2</div>;
+		else if (props.navigation.page === 'Bugs') return <Bugs />;
 		else return <div>3</div>;
 	};
 	return (

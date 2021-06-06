@@ -62,6 +62,7 @@ router.post('/addUser', async (req, res) => {
 
 router.post('/deleteUser', async (req, res) => {
     try {
+        // hell this sucsk
         const { id } = req.body;
     } catch (error) {
         return res.sendError(null, 'Internal Server Error');
